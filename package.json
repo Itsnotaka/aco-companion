@@ -1,0 +1,16 @@
+{
+  "name": "aco-bot",
+  "version": "1.0.0",
+  "description": "ACO Companion for ACO runners",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8",
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
+  }
+}
