@@ -3,35 +3,19 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const { Webhook, MessageBuilder } = require('discord-webhook-node');
 require('dotenv').config()
+const statusHook = new Webhook(process.env.STATUSHOOK);
 const acoHook = new Webhook(process.env.ACOHOOK)
 
 
 client.on('ready', () => {
-    client.channels.fetch( '870960890730668062' ).then(async channel => {
-        const embed = new Discord.MessageEmbed()
-        .setTitle('ACO Bot Status')
-        .setAuthor('Version 1.0.0')
-        .addField('Status', ':green_circle:')
-        .setColor('#b17bff')
-        .setTimestamp();
+    const embed = new MessageBuilder()
+    .setTitle('ACO Bot Status')
+    .setAuthor('Version 1.0.0')
+    .addField('Status', ':green_circle:')
+    .setColor('#b17bff')
+    .setTimestamp();
 
-        var statusMsg = await channel.send( embed )
-    setInterval(() => {
-        embed.setDescription('This message will refresh every 30 seconds')
-        embed.setTimestamp();
-        statusMsg.edit(embed)
-    }, 30000);
-    }).catch(err =>{
-        const embed = new Discord.MessageEmbed()
-        .setTitle('ACO Bot Status')
-        .setAuthor('Version 1.0.0')
-        .addField('Status', ':red_circle:')
-        .addField('Reason', err)
-        .setColor('#b17bff')
-        .setTimestamp();
-        // do something with err
-        channel.send( embed )
-    })
+    statusHook.send(embed);
 });
 
 client.on('message', async msg => {
